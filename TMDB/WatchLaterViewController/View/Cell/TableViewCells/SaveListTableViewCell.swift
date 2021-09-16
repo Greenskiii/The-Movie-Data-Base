@@ -1,6 +1,5 @@
 
 import UIKit
-import RealmSwift
 
 class SaveListTableViewCell: UITableViewCell {
 
@@ -11,49 +10,33 @@ class SaveListTableViewCell: UITableViewCell {
     @IBOutlet weak var discriptionLabel: UILabel!
     
     var movie: [MovieRealm] = []
-    let realm = try? Realm()
     let baseImageURL = "https://image.tmdb.org/t/p/original/"
 
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.movie = self.getMovies()
+        self.setupCell()
         
+    }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        self.posterImageView.layer.cornerRadius = 16
     }
 
-    
-    
-    private func getMovies() -> [MovieRealm] {
+    func configure(imageURL: URL?, title: String?,  releaseDate: String?, voteAverage: Double?, overviewText: String?){
+            
+        self.titleLabel.text = title
+        self.dateLabel.text = Constants.cell.realese + releaseDate!
+        self.voteLabel.text = Constants.cell.rating + (String(describing: voteAverage))
+        self.discriptionLabel.text = overviewText
+        self.posterImageView.sd_setImage(with: imageURL, completed: nil)
         
-        var movies = [MovieRealm]()
-        guard let citiesResults = realm?.objects(MovieRealm.self) else { return [] }
-        for movie in citiesResults {
-            movies.append(movie)
-        }
-        return movies
+        
+        
     }
-    
-    func configure(with result: MovieRealm){
-        
-        let pathURL = result.posterPath
-        let fullURL = baseImageURL + pathURL
-        self.posterImageView.sd_setImage(with: URL( string: fullURL, relativeTo: nil))
-        
-        
-        
-        self.titleLabel.text = result.title
-        
-        self.dateLabel.text = "Release date is \(result.date)"
-        
-        
-        self.voteLabel.text = "Ratings is \(result.voteAverage)"
-        
-        
-        
-        self.discriptionLabel.text = result.overview
-        
-        
-        
+    private func setupCell() {
+        self.posterImageView.contentMode = .scaleAspectFill
     }
 
     

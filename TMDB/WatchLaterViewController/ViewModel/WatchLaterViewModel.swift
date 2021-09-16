@@ -14,4 +14,5 @@ class WatchLaterViewModel {
             self.movies = movies
         })
     }
+
 }

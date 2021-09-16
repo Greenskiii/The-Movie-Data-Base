@@ -1,11 +1,6 @@
 
 import UIKit
-import SDWebImage
 import youtube_ios_player_helper
-import Alamofire
-import RealmSwift
-
-
 
 
 class MovieDeteilViewController: UIViewController {
@@ -14,9 +9,6 @@ class MovieDeteilViewController: UIViewController {
     @IBOutlet weak var trailerVideoView: YTPlayerView!
     @IBOutlet weak var gradientView: UIView!
     var viewModel: MediaDetailViewModel = MediaDetailViewModel()
-    
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,15 +26,11 @@ class MovieDeteilViewController: UIViewController {
         self.deteilLabel.text = self.viewModel.movie?.overview
         
         
-        self.setGradientBackground(view: gradientView)
+        self.viewModel.setGradientBackground(view: gradientView)
         
         let logoutBarButtonItem = UIBarButtonItem(title: "+", style: .done, target: self, action: #selector(addToWatchLaterButtonpressed))
         self.navigationItem.rightBarButtonItem = logoutBarButtonItem
-        
-        
-        
     }
-    
     
     func requestVideos(with movieId: String) {
         
@@ -55,17 +43,7 @@ class MovieDeteilViewController: UIViewController {
         self.trailerVideoView.load(withVideoId: key)
     }
     
-    func setGradientBackground(view: UIView) {
-        let colorTop =  UIColor(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 0.0).cgColor
-        let colorBottom = UIColor(red: 0/255.0, green: 0/255.0, blue: 0/255.0, alpha: 1.0).cgColor
-        
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [colorTop, colorBottom]
-        gradientLayer.locations = [0.0, 1.0]
-        gradientLayer.frame = view.bounds
-        
-        view.layer.insertSublayer(gradientLayer, at:0)
-    }
+
     
     @objc func addToWatchLaterButtonpressed(){
 

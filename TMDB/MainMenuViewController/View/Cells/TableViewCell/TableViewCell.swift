@@ -10,8 +10,6 @@ class TableViewCell: UITableViewCell {
     @IBOutlet weak var voteLabel: UILabel!
     @IBOutlet weak var discriptionLabel: UILabel!
     
-    
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.setupCell()
@@ -31,12 +29,9 @@ class TableViewCell: UITableViewCell {
         self.posterImageView.sd_setImage(with: imageURL, completed: nil)
         
     }
-    
+
     private func setupCell() {
         self.posterImageView.contentMode = .scaleAspectFill
     }
-    
-    
-    
 }
 

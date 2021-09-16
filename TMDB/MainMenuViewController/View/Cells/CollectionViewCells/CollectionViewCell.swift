@@ -20,15 +20,11 @@ class CollectionViewCell: UICollectionViewCell {
         self.profileImageView.layer.cornerRadius = 16
     }
     
-    
     func configure(actorName: String?, profilePath: String?) {
 
         self.profileNameLabel.text = actorName
         self.loadImage(profilePath: profilePath)
         self.setupCell()
-
-
-
     }
     
     private func loadImage(profilePath: String?) {

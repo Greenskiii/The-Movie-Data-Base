@@ -6,23 +6,14 @@
 //
 
 import UIKit
-import Alamofire
-import SDWebImage
-import RealmSwift
 
 class MainMenuViewController: UIViewController {
-    
-    
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var SwitchMovieTVShowSegmentedControl: UISegmentedControl!
     
     var viewModel: MainMenuViewModel = MainMenuViewModel()
-    
-    var actors: [Actors] = []
-    let realm = try? Realm()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +22,6 @@ class MainMenuViewController: UIViewController {
                                 forCellReuseIdentifier: "Cell")
         self.collectionView.register(UINib(nibName: "CollectionViewCell", bundle: nil),
                                      forCellWithReuseIdentifier: "CollectionViewCell")
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,7 +40,6 @@ class MainMenuViewController: UIViewController {
     
     @IBAction func `switch`(_ sender: Any) {
         self.tableView.reloadData()
-        
     }
 }
 
@@ -65,9 +54,7 @@ extension MainMenuViewController: UITableViewDataSource{
         default:
             return 0
         }
-        
     }
-    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? TableViewCell else { return UITableViewCell() }
@@ -89,10 +76,9 @@ extension MainMenuViewController: UITableViewDataSource{
             
         }
         return cell
-        
     }
-    
 }
+
 extension MainMenuViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedIndex = self.SwitchMovieTVShowSegmentedControl.selectedSegmentIndex
@@ -116,7 +102,6 @@ extension MainMenuViewController: UITableViewDelegate{
                 detailViewController.viewModel.movie = self.viewModel.movies[indexPath.row]
                 self.navigationController?.pushViewController(detailViewController, animated: true)
             }
-            
         }
     }
 }
@@ -135,7 +120,6 @@ extension MainMenuViewController: UICollectionViewDataSource {
             cell.configure(actorName: actor.name, profilePath: actor.profilePath)
             return cell
         }
-        
         return UICollectionViewCell()
     }
 }
@@ -148,6 +132,8 @@ extension MainMenuViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: 200, height: 300)
     }
 }
+
+
 
 
 
